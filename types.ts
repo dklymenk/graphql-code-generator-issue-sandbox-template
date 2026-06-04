@@ -30,9 +30,13 @@ export type User = {
   username: Scalars['String']['output'];
 };
 
-export type UserQuery_user_User = { id: string, username: string, email: string };
+export type UserEmailFragment = { email: string };
 
-export type UserQuery_Query = { user: UserQuery_user_User };
+export type UserQuery_user_User = { id: string, username: string };
+
+export type UserQuery_user_User = { email: string } | { email?: never };
+
+export type UserQuery_Query = { user: UserQuery_user_User & UserQuery_user_User };
 
 
 export type UserQueryVariables = Exact<{ [key: string]: never; }>;
