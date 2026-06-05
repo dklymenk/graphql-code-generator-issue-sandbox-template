@@ -1,11 +1,15 @@
-# `graphql-code-generator` Codesandbox template
+# `graphql-code-generator` `extractAllFieldsToTypes` with `@defer` "Duplicate identifier" reproduction
 
-You can use this repo in order to quickly create a template for reproducing issues related to `graphql-code-generator`. 
+Reproduction for https://github.com/dotansimha/graphql-code-generator/issues/10867
 
-Use the following link: https://codesandbox.io/s/github/dotansimha/graphql-code-generator-issue-sandbox-template 
+Run `npm run generate` and look at `types.ts` to find the duplicate `UserQuery_user_User` identifiers.
 
-* `document.graphql` - your GraphQL operations - queries, mutations, subscritpions and fragments.
-* `schema.graphql` - your GraphQL schema.
-* `codegen.yml` - Codegen configuration
+What works:
 
-> Create a fork from this template, and then in your sandbox terminal, use `yarn generate` to generate the types. 
+- setting `extractAllFieldsToTypes` to `false`
+- removing the `@defer`
+
+What doesn't work:
+
+- using the inline fragment `... @defer { email }`
+- using the named fragment `...UserEmail @defer`
